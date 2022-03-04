@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/promotions/create">Create new promotion</a>
+<h1>Promotion</h1>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>End Time</th>
+    </tr>
+    <th:block th:each="promotion : ${promotions}">
+        <tr>
+            <td th:text="${promotion.getTitle()}"></td>
+            <td th:text="${promotion.getStartTime()}"></td>
+            <td th:text="${promotion.getEndTime()}"></td>
+            <td th:text="${promotion.getDiscountRate()}"></td>
+            <td th:text="${promotion.getDetail()}"></td>
+
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
