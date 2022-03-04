@@ -85,15 +85,20 @@ public class Promotion implements Validator {
         Promotion promotion = (Promotion) target;
         Date currentTime=new Date();
         Date startTime = promotion.getStartTime();
-        ValidationUtils.rejectIfEmpty(errors, "startTime", "number.empty");
-        if (startTime>currentTime){
-            errors.rejectValue("startTime", "number.length");
+        Date endTime = promotion.getEndTime();
+        int discountRate=promotion.getDiscountRate();
+        ValidationUtils.rejectIfEmpty(errors, "startTime", "startTime.empty");
+        ValidationUtils.rejectIfEmpty(errors, "endTime", "endTime.empty");
+        ValidationUtils.rejectIfEmpty(errors, "discountRate", "discountRate.empty");
+        ValidationUtils.rejectIfEmpty(errors, "title", "title.empty");
+        if (discountRate<10000){
+            errors.rejectValue("discountRate", "discountRate.matches");
         }
-        if (!number.startsWith("0")){
-            errors.rejectValue("number", "number.startsWith");
+        if (startTime.compareTo(currentTime)<0){
+            errors.rejectValue("startTime", "startTime.wrong");
         }
-        if (!number.matches("(^$|[0-9]*$)")){
-            errors.rejectValue("number", "number.matches");
+        if (endTime.compareTo(startTime)<=0){
+            errors.rejectValue("endTime", "endTime.wrong");
         }
 
     }
